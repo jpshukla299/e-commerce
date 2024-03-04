@@ -1,0 +1,79 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.navbar {
+  height: 80px;
+  position: fixed;
+  top: 0;
+  background-color: #333; /* Customize the background color */
+  width: 100%; /* Set the width to 100% to cover the entire viewport */
+  z-index: 100; /* Optional: Set a high z-index to ensure it appears above other elements */
+}
+
+.navbar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navbar li {
+  display: inline;
+  margin-right: 20px; /* Adjust the spacing between navbar items */
+}
+
+.navbar a {
+  color: #fff; /* Customize the text color */
+  text-decoration: none;
+}
+.cart {
+  position: fixed;
+  padding: 10px;
+
+}
+.header{
+  background-color: rgb(35 177 206);
+  width: 100%;
+  padding: 0;
+
+
+}
+.container1{
+ display: flex;
+ justify-content: space-between
+
+}
