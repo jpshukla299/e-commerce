@@ -1,35 +1,28 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import ReactStars from 'react-stars';
 import { MyContext } from '../App';
 import { FaMinus, FaPlus } from 'react-icons/fa6';
+import { decreaseQuantity, increaseQuantity } from '../action';
 
 const Cart = () => {
-  const { cart } = useContext(MyContext);
+  const { cart, dispatch } = useContext(MyContext);
+  
 
-  // Initialize state for product quantities
-  const [productQuantities, setProductQuantities] = useState({});
+  // const [productQuantities, setProductQuantities] = useState({});
+  console.log('cart',cart)
 
-  const onAdd = (productId) => {
-    setProductQuantities((prevQuantities) => ({
-      ...prevQuantities,
-      [productId]: (prevQuantities[productId] || 0) + 1,
-    }));
+  const onAdd = (productKey) => {
+    dispatch(increaseQuantity(productKey)); // Dispatch action to increase quantity
   };
-
-  const onRemove = (productId) => {
-    setProductQuantities((prevQuantities) => ({
-      ...prevQuantities,
-      [productId]: Math.max((prevQuantities[productId] || 0) - 1, 0),
-    }));
+  
+  const onRemove = (productKey) => {
+    dispatch(decreaseQuantity(productKey)); // Dispatch action to decrease quantity
   };
 
   const calculateOrderSummary = () => {
-    const totalItems = Object.values(productQuantities).reduce((acc, quantity) => acc + quantity, 0);
-    const shippingCost = cart?.cart?.reduce((acc, product) => acc + product.shipping, 0) || 0;
-    const totalPrice = cart?.cart?.reduce(
-      (acc, product) => acc + product.price * (productQuantities[product.key] || 0),
-      0
-    ) || 0;
+    const totalItems =  cart?.cart?.reduce((acc, product) => acc + product.quantity, 0); // Calculate total items directly from cart
+    const shippingCost =  cart?.cart?.reduce((acc, product) => acc + product.shipping, 0); // Calculate shipping cost directly from cart
+    const totalPrice =  cart?.cart?.reduce((acc, product) => acc + (product.price * product.quantity), 0); // Calculate total price directly from cart
 
     return {
       totalItems,
@@ -71,8 +64,8 @@ const Cart = () => {
                                 </ul>
                                 <div className="text-muted bg-info-subtle">
                                   Product Total = ${product.price} <span>&#215;</span>{' '}
-                                  {productQuantities[product.key] || 0} = $
-                                  {product.price * (productQuantities[product.key] || 0)}
+                                  {product.quantity} = $
+                                  {product.price * (product.quantity)}
                                 </div>
                               </div>
                               <div className="mt-3 mt-lg-0 ml-lg-3 text-center">
@@ -93,7 +86,7 @@ const Cart = () => {
                                       </a>
                                     </div>
                                     <div>
-                                      <span className="p-3">{productQuantities[product.key] || 0}</span>
+                                      <span className="p-3">{product.quantity}</span>
                                     </div>
                                     <div className="badge">
                                       <a

@@ -29,6 +29,7 @@ const Login = () => {
   return (
     <div className='bg-dark'
       style={{
+        
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'column'

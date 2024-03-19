@@ -1,39 +1,37 @@
-import { Navigate, useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { MyContext } from '../App';
 import { Link } from 'react-router-dom';
-import { FaCartShopping } from "react-icons/fa6";
-// import '../App.css'
-
+import { FaShoppingCart } from "react-icons/fa";
+import { Offcanvas, Button } from 'react-bootstrap';
+import { GiHamburgerMenu } from "react-icons/gi";
 
 
 function Header() {
   const { cart } = useContext(MyContext);
-  
-    return (
-      <>
-       <nav className="bg-info-subtle navbar navbar-expand-lg navbar">
-        <div></div>
-      <div className="container">
-        <Link className="navbar-brand" to="/">
-          E- Commerce
-        </Link>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div id="navbarNav">
-          <ul className="navbar-nav ml-auto">
+  const [showOffcanvas, setShowOffcanvas] = useState(false);
+
+  const handleOffcanvasToggle = () => setShowOffcanvas(!showOffcanvas);
+
+  return (
+    <>
+    <div>
+    <nav className="bg-info-subtle navbar navbar-expand-lg navbar">
+        <div> 
+           </div>
+   
+    <div className='bg-info-subtle'>
+    <GiHamburgerMenu style={{ fontSize: '2em' }} onClick={handleOffcanvasToggle} />
+
+
+      <Offcanvas show={showOffcanvas} onHide={() => setShowOffcanvas(false)}>
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title onClick={<link to= '/'></link>}>E-Commerce</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+          <ul className="navbar-nav">
             <li className="nav-item">
               <Link className="nav-link" to="/cart">
-              <FaCartShopping />
+              <FaShoppingCart />
                 Cart({cart.cart.length})
               </Link>
             </li>
@@ -53,11 +51,24 @@ function Header() {
               </Link>
             </li>
           </ul>
-        </div>
+          
+        </Offcanvas.Body>
+      </Offcanvas>
+    </div>
+    <div className="container">
+        <Link className="navbar-brand" to="/">
+          E- Commerce
+        </Link>
+        <Link className="nav-link" to="/cart">
+              <FaShoppingCart />
+                Cart({cart.cart.length})
+              </Link>
       </div>
     </nav>
+    </div>
+
     </>
   );
-};
-    
-  export default Header;
+}
+
+export default Header;
